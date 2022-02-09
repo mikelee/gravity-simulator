@@ -117,19 +117,19 @@ function App() {
     xForce = acceleration / (1 + Math.sqrt(yPercentOfX));
     yForce = yPercentOfX * xForce;
 
-    // add or subtract xForce from xMotion and yForce from yMotion depending on planet1's position relative to the position of gravity (planet2's position)
+    // add or subtract xForce from xVelocity and yForce from yVelocity depending on planet1's position relative to the position of gravity (planet2's position)
     // stays in same position if xDirection === 0
     if(xDirection > 0) {
-      planet1.updateMotion(xForce, 0);
+      planet1.updateVelocity(xForce, 0);
     } else if (xDirection < 0) {
-      planet1.updateMotion(-xForce, 0);
+      planet1.updateVelocity(-xForce, 0);
     }
 
     // stays in same position if yDirection === 0
     if(yDirection > 0) {
-      planet1.updateMotion(0, yForce);
+      planet1.updateVelocity(0, yForce);
     } else if (yDirection < 0) {
-      planet1.updateMotion(0, -yForce);
+      planet1.updateVelocity(0, -yForce);
     }
   }
 

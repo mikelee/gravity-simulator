@@ -3,17 +3,17 @@ export default class Planet {
     mass: number;
     x: number;
     y: number;
-    xMotion: number;
-    yMotion: number;
+    xVelocity: number;
+    yVelocity: number;
     color: string;
 
-    constructor(mass: number, radius: number, x: number, y: number, xMotion: number, yMotion: number, color: string) {
+    constructor(mass: number, radius: number, x: number, y: number, xVelocity: number, yVelocity: number, color: string) {
         this.mass = mass;
         this.radius = radius;
         this.x = x;
         this.y = y;
-        this.xMotion = xMotion;
-        this.yMotion = yMotion;
+        this.xVelocity = xVelocity;
+        this.yVelocity = yVelocity;
         this.color = color;
     }
 
@@ -35,12 +35,12 @@ export default class Planet {
     }
 
     move() {
-        this.x += this.xMotion;
-        this.y += this.yMotion;
+        this.x += this.xVelocity;
+        this.y += this.yVelocity;
     }
 
-    updateMotion(deltaX: number, deltaY: number) {
-        this.xMotion += deltaX;
-        this.yMotion += deltaY;
+    updateVelocity(deltaX: number, deltaY: number) {
+        this.xVelocity += deltaX;
+        this.yVelocity += deltaY;
     }
 }
