@@ -1,0 +1,9 @@
+.app {
+    display: flex;
+    justify-content: center;
+
+    #canvas {
+        margin-top: 2rem;
+        background-color: #222;
+    }
+}
