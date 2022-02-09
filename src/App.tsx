@@ -102,8 +102,8 @@ function App() {
     }
 
     // covert gravitational acceleration (a) to x and y velocities
-    let xForce = 0;
-    let yForce = 0;
+    let xVelocity = 0;
+    let yVelocity = 0;
 
     // y = yPercentOfX * x;
 
@@ -114,22 +114,22 @@ function App() {
     // x = a / (1 + sqrt(yPercentOfX) 
 
 
-    xForce = acceleration / (1 + Math.sqrt(yPercentOfX));
-    yForce = yPercentOfX * xForce;
+    xVelocity = acceleration / (1 + Math.sqrt(yPercentOfX));
+    yVelocity = yPercentOfX * xVelocity;
 
-    // add or subtract xForce from xVelocity and yForce from yVelocity depending on planet1's position relative to the position of gravity (planet2's position)
+    // add or subtract gravity's xVelocity from planet1's xVelocity and gravity's yVelocity from planet1's yVelocity depending on planet1's position relative to the position of gravity (planet2's position)
     // stays in same position if xDirection === 0
     if(xDirection > 0) {
-      planet1.updateVelocity(xForce, 0);
+      planet1.updateVelocity(xVelocity, 0);
     } else if (xDirection < 0) {
-      planet1.updateVelocity(-xForce, 0);
+      planet1.updateVelocity(-xVelocity, 0);
     }
 
     // stays in same position if yDirection === 0
     if(yDirection > 0) {
-      planet1.updateVelocity(0, yForce);
+      planet1.updateVelocity(0, yVelocity);
     } else if (yDirection < 0) {
-      planet1.updateVelocity(0, -yForce);
+      planet1.updateVelocity(0, -yVelocity);
     }
   }
 
