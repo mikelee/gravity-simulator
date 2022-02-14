@@ -9,17 +9,30 @@ function App() {
   let ctx: CanvasRenderingContext2D | null;
   let planet1: Planet;
   let planet2: Planet;
+  let planet3: Planet;
+  let planet4: Planet;
+  let planet5: Planet;
+  let planet6: Planet;
+  let planets: Planet[];
   const WIDTH = window.innerWidth - 50;
   const HEIGHT = window.innerHeight - 50;
   const RED = '#c76161';
   const BLUE = '#7490e3';
-
+  const GREEN = '#56ba6f';
+  const YELLOW = '#d1d44e';
+  
   useEffect(() => {
     if (canvasRef.current !== undefined) canvas = canvasRef.current;
     if (canvas) ctx = canvas.getContext('2d');
 
-    planet1 = new Planet(10000000000000, 10, 100, 100, .5, 0, RED);
-    planet2 = new Planet(1500000000000, 10, WIDTH / 2, 200, -1, 0, BLUE);
+    planet1 = new Planet(9000000000000, 10, 400, 400, 0, 0, YELLOW);
+    planet2 = new Planet(30000000000, 10, 0, 0, 0, .5, RED);
+    planet3 = new Planet(10000000000, 10, 600, 0, -.5, 0, GREEN);
+    planet4 = new Planet(90000000000, 10, 0, 700, .8, 0, GREEN);
+    planet5 = new Planet(10000000000, 10, 600, 800, 0, -1.5, RED);
+    planet6 = new Planet(10000000000, 10, 800, 0, 0, .5, BLUE);
+
+    planets = [planet1, planet2, planet3, planet4, planet5, planet6];
 
     requestAnimationFrame(refresh);
   }, []);
@@ -27,35 +40,52 @@ function App() {
   const refresh = () => {
     ctx?.clearRect(0, 0, WIDTH, HEIGHT);
 
-    const positions = getPlanetPositions(planet1, planet2);
-    const gravity = calcGravity(planet1.mass, planet2.mass, positions.distance);
+    planets.forEach(planet => {
+      const otherPlanets = planets.filter(otherPlanet => otherPlanet !== planet);
 
-    const planetsAcceleration = calcAcceleration(planet1, planet2, gravity);
+      const deltaVelocities = calcDeltaVelocities(planet, otherPlanets);
 
-    calcChange(planet1, planet2, planetsAcceleration.planet1A);
-    calcChange(planet2, planet1, planetsAcceleration.planet2A);
+      planet.updateVelocity(deltaVelocities.xVelocity, deltaVelocities.yVelocity);
 
-    planet1.move()
-    planet2.move()
-
-    if (ctx) draw(ctx, [planet1, planet2]);
+      planet.move();
+      if (ctx) planet.draw(ctx);
+    });
 
     requestAnimationFrame(refresh);
   }
 
-  const getPlanetPositions = (planet1: Planet, planet2: Planet) => {
-    const planet1Position = planet1.getPosition();
-    const planet2Position = planet2.getPosition();
+  const calcDeltaVelocities = (planet: Planet, otherPlanets: Planet[]) => {
+    const gravityForces = calcGravityForces(planet, otherPlanets);
 
-    const deltaX = Math.abs(planet2Position.x - planet1Position.x);
-    const deltaY = Math.abs(planet2Position.y - planet1Position.y);
-    const distance = Math.sqrt((deltaX ** 2) + (deltaY ** 2));
+    const gravityAccelerations = calcGravityAccelerations(planet, gravityForces);
 
-    return {
-      planet1Position,
-      planet2Position,
-      distance
-    }
+    const directions = calcDirections(planet, otherPlanets);
+
+    const accelerationsAndDirections = combineAccelerationsAndDirections(gravityAccelerations, directions);
+
+    const velocities = calcVelocities(accelerationsAndDirections);
+
+    const velocitiesSum = sumVelocities(velocities);
+
+    return velocitiesSum;
+  }
+
+  const calcGravityForces = (planet: Planet, otherPlanets: Planet[]) => {
+    const m1 = planet.mass;
+
+    const gravityForces = otherPlanets.map(otherPlanet => {
+      const m2 = otherPlanet.mass;
+
+      const deltaX = Math.abs(otherPlanet.x - planet.x);
+      const deltaY = Math.abs(otherPlanet.y - planet.y);
+      const distance = Math.sqrt((deltaX ** 2) + (deltaY ** 2));
+
+      const gravity = calcGravity(m1, m2, distance);
+
+      return gravity
+    });
+
+    return gravityForces;
   }
 
   const calcGravity = (m1: number, m2: number, r: number) => {
@@ -64,79 +94,121 @@ function App() {
 
     return f;
   }
-  
-  const calcAcceleration = (planet1: Planet, planet2: Planet, gravity: number) => {
-    // a = f/m
-    const planet1A = gravity / planet1.mass;
-    const planet2A = gravity / planet2.mass;
 
-    return {
-      planet1A,
-      planet2A
-    }
+  const calcGravityAccelerations = (planet: Planet, gravityForces: number[]) => {
+    const accelerations = gravityForces.map(gravityForce => {
+      return calcAcceleration(planet.mass, gravityForce);
+    });
+
+    return accelerations;
   }
 
-  const calcChange = (planet1: Planet, planet2: Planet, acceleration: number) => {
-    const x1 = planet1.x;
-    const y1 = planet1.y;
-    const x2 = planet2.x;
-    const y2 = planet2.y;
+  const calcAcceleration = (planetMass: number, gravity: number) => {
+    // a = f/m
+    const acceleration = gravity / planetMass;
 
-    // + === move positive (right)
-    // - === move negative (left)
-    // 0 === stay still
-    const xDirection = x2 - x1;
+    return acceleration;
+  }
 
-    // + === move positive (down)
-    // - === move negative (up)
-    // 0 === stay still
-    const yDirection = y2 - y1;
+  const calcDirections = (planet: Planet, otherPlanets: Planet[]) => {
+    const directions = otherPlanets.map(otherPlanet => {
+      const x1 = planet.x;
+      const y1 = planet.y;
+      const x2 = otherPlanet.x;
+      const y2 = otherPlanet.y;
 
-    // find y:x ratio
-    let yPercentOfX;
-    if (xDirection === 0) {
-      // Needed because you can't divide by 0
-      yPercentOfX = 1;
-    } else {
-      yPercentOfX = Math.abs(yDirection / xDirection);
+      // + === move positive (right)
+      // - === move negative (left)
+      // 0 === stay still
+      const xDirection = x2 - x1;
+
+      // + === move positive (down)
+      // - === move negative (up)
+      // 0 === stay still
+      const yDirection = y2 - y1;
+
+      return {
+        xDirection,
+        yDirection
+      }
+    });
+
+    return directions;
+  }
+
+  const combineAccelerationsAndDirections = (accelerations: number[], directions: { xDirection: number, yDirection: number }[]) => {
+    const accelerationsAndDirections = [];
+    for (let i = 0; i < accelerations.length; i++) {
+      accelerationsAndDirections.push({
+        acceleration: accelerations[i],
+        directions: directions[i]
+      });
     }
 
-    // covert gravitational acceleration (a) to x and y velocities
+    return accelerationsAndDirections;
+  }
+
+  const calcVelocities = (accelerationsAndDirections: { acceleration: number, directions: { xDirection: number, yDirection: number } }[]) => {
+    const velocities = accelerationsAndDirections.map(accelerationAndDirection => {
+      const { acceleration, directions } = accelerationAndDirection;
+
+      // find y:x ratio
+      let yPercentOfX;
+      if (directions.xDirection === 0) {
+        // Needed because you can't divide by 0
+        yPercentOfX = 1;
+      } else {
+        yPercentOfX = Math.abs(directions.yDirection / directions.xDirection);
+      }
+
+      // convert gravitational acceleration (a) to x and y velocities
+      let xVelocity = 0;
+      let yVelocity = 0;
+
+      // y = yPercentOfX * x;
+
+      // x^2 + y^2 = a^2
+      // x^2 + (yPercentOfX*x)^2 = a^2
+      // x + (sqrt(yPercentOfX) * x) = a
+      // (1 + sqrt(yPercentofX)) * x = a
+      // x = a / (1 + sqrt(yPercentOfX) 
+
+
+      xVelocity = acceleration / (1 + Math.sqrt(yPercentOfX));
+      yVelocity = yPercentOfX * xVelocity;
+
+      // velocity is negative if direction is negative
+      if (directions.xDirection < 0) {
+        xVelocity *= -1;
+      }
+
+      // velocity is negative if direction is negative
+      if (directions.yDirection < 0) {
+        yVelocity *= -1;
+      }
+
+      return {
+        xVelocity,
+        yVelocity
+      }
+    });
+
+    return velocities;
+  }
+
+  const sumVelocities = (velocities: { xVelocity: number, yVelocity: number }[]) => {
     let xVelocity = 0;
     let yVelocity = 0;
 
-    // y = yPercentOfX * x;
-
-    // x^2 + y^2 = a^2
-    // x^2 + (yPercentOfX*x)^2 = a^2
-    // x + (sqrt(yPercentOfX) * x) = a
-    // (1 + sqrt(yPercentofX)) * x = a
-    // x = a / (1 + sqrt(yPercentOfX) 
-
-
-    xVelocity = acceleration / (1 + Math.sqrt(yPercentOfX));
-    yVelocity = yPercentOfX * xVelocity;
-
-    // add or subtract gravity's xVelocity from planet1's xVelocity and gravity's yVelocity from planet1's yVelocity depending on planet1's position relative to the position of gravity (planet2's position)
-    // stays in same position if xDirection === 0
-    if(xDirection > 0) {
-      planet1.updateVelocity(xVelocity, 0);
-    } else if (xDirection < 0) {
-      planet1.updateVelocity(-xVelocity, 0);
-    }
-
-    // stays in same position if yDirection === 0
-    if(yDirection > 0) {
-      planet1.updateVelocity(0, yVelocity);
-    } else if (yDirection < 0) {
-      planet1.updateVelocity(0, -yVelocity);
-    }
-  }
-
-  const draw = (ctx: CanvasRenderingContext2D, planets: Planet[]) => {
-    planets.forEach(planet => {
-      planet.draw(ctx)
+    velocities.forEach(velocity => {
+      xVelocity += velocity.xVelocity;
+      yVelocity += velocity.yVelocity;
     });
+
+    return {
+      xVelocity,
+      yVelocity
+    }
   }
   
   return (
