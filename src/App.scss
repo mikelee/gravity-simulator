@@ -1,9 +1,9 @@
 .app {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
     #canvas {
-        margin-top: 2rem;
         background-color: #222;
     }
 }
