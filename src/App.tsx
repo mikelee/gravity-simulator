@@ -14,8 +14,8 @@ function App() {
   let planet5: Planet;
   let planet6: Planet;
   let planets: Planet[];
-  const WIDTH = window.innerWidth - 50;
-  const HEIGHT = window.innerHeight - 50;
+  const WIDTH = window.innerWidth;
+  const HEIGHT = window.innerHeight - 200;
   const RED = '#c76161';
   const BLUE = '#7490e3';
   const GREEN = '#56ba6f';
