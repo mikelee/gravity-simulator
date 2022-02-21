@@ -4,39 +4,23 @@ import './universe.styles.scss';
 
 import Planet from '../planet';
 
-const Universe: React.FC = () => {
+interface Props {
+    planets: Planet[],
+}
+
+const Universe: React.FC<Props> = ({ planets }) => {
     const canvasRef = useRef(null);
     let canvas: HTMLCanvasElement | null;
     let ctx: CanvasRenderingContext2D | null;
-    let planet1: Planet;
-    let planet2: Planet;
-    let planet3: Planet;
-    let planet4: Planet;
-    let planet5: Planet;
-    let planet6: Planet;
-    let planets: Planet[];
     const WIDTH = window.innerWidth;
     const HEIGHT = window.innerHeight - 200;
-    const RED = '#c76161';
-    const BLUE = '#7490e3';
-    const GREEN = '#56ba6f';
-    const YELLOW = '#d1d44e';
 
     useEffect(() => {
         if (canvasRef.current !== undefined) canvas = canvasRef.current;
         if (canvas) ctx = canvas.getContext('2d');
     
-        planet1 = new Planet(9000000000000, 10, 400, 400, 0, 0, YELLOW);
-        planet2 = new Planet(30000000000, 10, 0, 0, 0, .5, RED);
-        planet3 = new Planet(10000000000, 10, 600, 0, -.5, 0, GREEN);
-        planet4 = new Planet(90000000000, 10, 0, 700, .8, 0, GREEN);
-        planet5 = new Planet(10000000000, 10, 600, 800, 0, -1.5, RED);
-        planet6 = new Planet(10000000000, 10, 800, 0, 0, .5, BLUE);
-    
-        planets = [planet1, planet2, planet3, planet4, planet5, planet6];
-    
         requestAnimationFrame(refresh);
-      }, []);
+      }, [planets]);
     
       const refresh = () => {
         ctx?.clearRect(0, 0, WIDTH, HEIGHT);
