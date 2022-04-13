@@ -9,6 +9,7 @@ import Planet from './planet';
 
 function App() {
     const [planets, setPlanets] = useState<Planet[]>([]);
+    const [play, setPlay] = useState(true);
 
     const addPlanet = (planet: Planet) => {
         setPlanets([
@@ -16,11 +17,15 @@ function App() {
             planet
         ]);
     }
+
+    function togglePlay() {
+        setPlay(!play);
+    }
     
     return (
         <div className='app'>
-            <Universe planets={planets} />
-            <Controls addPlanet={addPlanet} />
+            <Universe planets={planets} play={play} />
+            <Controls addPlanet={addPlanet} play={play} togglePlay={togglePlay} />
         </div>
     );
 }

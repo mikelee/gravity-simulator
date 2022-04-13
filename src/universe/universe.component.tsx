@@ -7,9 +7,10 @@ import Planet from '../planet';
 
 interface Props {
     planets: Planet[],
+    play: boolean
 }
 
-const Universe: React.FC<Props> = ({ planets }) => {
+const Universe: React.FC<Props> = ({ planets, play }) => {
     const canvasRef = useRef(null);
     const rafIdRef = useRef<number | null>(null);
     let rafId: number;
@@ -28,10 +29,11 @@ const Universe: React.FC<Props> = ({ planets }) => {
         return () => {
             cancelAnimationFrame(rafId);
         }
-    }, [planets]);
+    }, [planets, play]);
     
     const refresh = () => {
         if (rafId !== rafIdRef.current) return;
+        if (!play) return;
 
         ctx?.clearRect(0, 0, WIDTH, HEIGHT);
 

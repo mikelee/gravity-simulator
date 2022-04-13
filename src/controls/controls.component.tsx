@@ -5,10 +5,12 @@ import './controls.styles.scss';
 import Planet from '../planet';
 
 interface Props {
-    addPlanet: (planet: Planet) => void
+    play: boolean,
+    addPlanet: (planet: Planet) => void,
+    togglePlay: () => void
 }
 
-const Controls: React.FC<Props> = ({ addPlanet }) => {
+const Controls: React.FC<Props> = ({ play, addPlanet, togglePlay }) => {
 
     const createPlanet = (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault();
@@ -38,6 +40,7 @@ const Controls: React.FC<Props> = ({ addPlanet }) => {
                 <input name='color' placeholder='color' type='text' required />
                 <button className='create-planet-button' type='submit' >Create Planet</button>
             </form>
+            <button onClick={togglePlay}>{play ? 'Pause' : 'Play' }</button>
         </section>
     );
 }
