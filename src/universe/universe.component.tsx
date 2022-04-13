@@ -21,33 +21,33 @@ const Universe: React.FC<Props> = ({ planets }) => {
     useEffect(() => {
         if (canvasRef.current !== undefined) canvas = canvasRef.current;
         if (canvas) ctx = canvas.getContext('2d');
-    
+
         rafIdRef.current = requestAnimationFrame(refresh);
         rafId = rafIdRef.current;
 
         return () => {
-          cancelAnimationFrame(rafId);
+            cancelAnimationFrame(rafId);
         }
-      }, [planets]);
+    }, [planets]);
     
-      const refresh = () => {
+    const refresh = () => {
         if (rafId !== rafIdRef.current) return;
-        
+
         ctx?.clearRect(0, 0, WIDTH, HEIGHT);
-    
+
         planets.forEach(planet => {
-          const otherPlanets = planets.filter(otherPlanet => otherPlanet !== planet);
-    
-          const deltaVelocities = calcDeltaVelocities(planet, otherPlanets);
-    
-          planet.updateVelocity(deltaVelocities.xVelocity, deltaVelocities.yVelocity);
-    
-          planet.move();
-          if (ctx) planet.draw(ctx);
+            const otherPlanets = planets.filter(otherPlanet => otherPlanet !== planet);
+
+            const deltaVelocities = calcDeltaVelocities(planet, otherPlanets);
+
+            planet.updateVelocity(deltaVelocities.xVelocity, deltaVelocities.yVelocity);
+
+            planet.move();
+            if (ctx) planet.draw(ctx);
         });
-    
+
         requestAnimationFrame(refresh);
-      }
+    }
 
     return (
         <div className='universe'>
