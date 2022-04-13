@@ -10,6 +10,8 @@ interface Props {
 
 const Universe: React.FC<Props> = ({ planets }) => {
     const canvasRef = useRef(null);
+    const rafIdRef = useRef<number | null>(null);
+    let rafId: number;
     let canvas: HTMLCanvasElement | null;
     let ctx: CanvasRenderingContext2D | null;
     const WIDTH = window.innerWidth;
@@ -19,10 +21,17 @@ const Universe: React.FC<Props> = ({ planets }) => {
         if (canvasRef.current !== undefined) canvas = canvasRef.current;
         if (canvas) ctx = canvas.getContext('2d');
     
-        requestAnimationFrame(refresh);
+        rafIdRef.current = requestAnimationFrame(refresh);
+        rafId = rafIdRef.current;
+
+        return () => {
+          cancelAnimationFrame(rafId);
+        }
       }, [planets]);
     
       const refresh = () => {
+        if (rafId !== rafIdRef.current) return;
+        
         ctx?.clearRect(0, 0, WIDTH, HEIGHT);
     
         planets.forEach(planet => {
