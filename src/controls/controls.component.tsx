@@ -7,10 +7,11 @@ import Planet from '../planet';
 interface Props {
     play: boolean,
     addPlanet: (planet: Planet) => void,
+    clearPlanets: () => void,
     togglePlay: () => void
 }
 
-const Controls: React.FC<Props> = ({ play, addPlanet, togglePlay }) => {
+const Controls: React.FC<Props> = ({ play, addPlanet, clearPlanets, togglePlay }) => {
 
     const createPlanet = (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault();
@@ -41,6 +42,7 @@ const Controls: React.FC<Props> = ({ play, addPlanet, togglePlay }) => {
                 <button className='create-planet-button' type='submit' >Create Planet</button>
             </form>
             <button onClick={togglePlay}>{play ? 'Pause' : 'Play' }</button>
+            <button onClick={clearPlanets}>Clear Planets</button>
         </section>
     );
 }

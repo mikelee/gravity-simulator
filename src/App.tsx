@@ -18,6 +18,10 @@ function App() {
         ]);
     }
 
+    const clearPlanets = () => {
+        setPlanets([]);
+    }
+
     function togglePlay() {
         setPlay(!play);
     }
@@ -25,7 +29,7 @@ function App() {
     return (
         <div className='app'>
             <Universe planets={planets} play={play} />
-            <Controls addPlanet={addPlanet} play={play} togglePlay={togglePlay} />
+            <Controls addPlanet={addPlanet} play={play} togglePlay={togglePlay} clearPlanets={clearPlanets} />
         </div>
     );
 }
