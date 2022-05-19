@@ -29,6 +29,12 @@ const Universe: React.FC<Props> = ({ planets, play, addPlanet }) => {
         rafIdRef.current = requestAnimationFrame(refresh);
         rafId = rafIdRef.current;
 
+        if (ctx !== null) {
+            planets.forEach(planet => {
+                planet.draw(ctx as CanvasRenderingContext2D);
+            });
+        }
+
         return () => {
             cancelAnimationFrame(rafId);
         }
