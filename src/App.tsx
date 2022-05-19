@@ -28,7 +28,7 @@ function App() {
     
     return (
         <div className='app'>
-            <Universe planets={planets} play={play} />
+            <Universe planets={planets} play={play} addPlanet={addPlanet} />
             <Controls addPlanet={addPlanet} play={play} togglePlay={togglePlay} clearPlanets={clearPlanets} />
         </div>
     );
