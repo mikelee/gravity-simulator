@@ -45,7 +45,7 @@ const Universe: React.FC<Props> = ({ planets, play, addPlanet }) => {
                 planet.draw(ctx as CanvasRenderingContext2D);
             });
 
-            drawLine();
+            drawArrow();
         }
 
         return () => {
@@ -71,7 +71,7 @@ const Universe: React.FC<Props> = ({ planets, play, addPlanet }) => {
         });
 
         if (lineStart && lineEnd) {
-            drawLine();
+            drawArrow();
         }
 
         requestAnimationFrame(refresh);
@@ -96,8 +96,16 @@ const Universe: React.FC<Props> = ({ planets, play, addPlanet }) => {
         setLineEnd(null);
     }
 
-    const drawLine = () => {
+    const drawArrow = () => {
         if (ctx && lineStart && lineEnd) {
+            const deltaX = lineEnd.x - lineStart.x;
+            const deltaY = lineEnd.y - lineStart.y;
+            
+            const barbSlopes = calcBarbSlopes(deltaX, deltaY);
+            
+            const leftBarb = calcBarbEndpoint(barbSlopes.leftSlope, barbSlopes.leftAngle, lineStart, deltaX);
+            const rightBarb = calcBarbEndpoint(barbSlopes.rightSlope, barbSlopes.rightAngle, lineStart, deltaX);
+
             // straight line
             ctx.beginPath();
             ctx.strokeStyle = 'white';
@@ -105,14 +113,6 @@ const Universe: React.FC<Props> = ({ planets, play, addPlanet }) => {
             ctx.moveTo(lineStart.x, lineStart.y);
             ctx.lineTo(lineEnd.x, lineEnd.y);
             ctx.stroke();
-
-            const deltaX = lineEnd.x - lineStart.x;
-            const deltaY = lineEnd.y - lineStart.y;
-
-            const barbSlopes = calcBarbSlopes(deltaX, deltaY);
-
-            const leftBarb = calcBarbEndpoint(barbSlopes.leftSlope, barbSlopes.leftAngle, lineStart, deltaX);
-            const rightBarb = calcBarbEndpoint(barbSlopes.rightSlope, barbSlopes.rightAngle, lineStart, deltaX);
             
             // left barb when arrow pointing up
             ctx.beginPath();
