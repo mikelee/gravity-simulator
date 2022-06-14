@@ -232,7 +232,7 @@ const Universe: React.FC<Props> = ({ planets, play, addPlanet }) => {
         const deltaX = endX - startX;
         const deltaY = endY - startY;
 
-        // deltaX and deltaX are negative to shoot the planet in the opposite direction of the user's drag
+        // deltaX and deltaY are negative to shoot the planet in the opposite direction of the user's drag
         const xVelocity = -deltaX / DRAG_SENSITIVITY;
         const yVelocity = -deltaY / DRAG_SENSITIVITY;
 
