@@ -210,6 +210,7 @@ const Universe: React.FC<Props> = ({ planets, play, addPlanet }) => {
 
         const baseAngle = Math.atan(baseSlope);
 
+        // create angles +/- .5 radians from base line's angle
         const leftAngle = baseAngle + .5;
         const rightAngle = baseAngle - .5;
 
