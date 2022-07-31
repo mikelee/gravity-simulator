@@ -27,7 +27,7 @@ const Universe: React.FC<Props> = ({ planets, play, addPlanet }) => {
     let canvas: HTMLCanvasElement | null;
     let ctx: CanvasRenderingContext2D | null;
     const WIDTH = window.innerWidth;
-    const HEIGHT = window.innerHeight - 200;
+    const HEIGHT = window.innerHeight;
 
     const [lineStart, setLineStart] = useState<{ x: number, y: number } | null>(null);
     const [lineEnd, setLineEnd] = useState<{ x: number, y: number } | null>(null);
