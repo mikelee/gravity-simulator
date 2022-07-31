@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './controls.styles.scss';
 
@@ -12,6 +12,8 @@ interface Props {
 }
 
 const Controls: React.FC<Props> = ({ play, addPlanet, clearPlanets, togglePlay }) => {
+
+    const [visible, setVisible] = useState(true);
 
     const createPlanet = (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault();
@@ -30,20 +32,28 @@ const Controls: React.FC<Props> = ({ play, addPlanet, clearPlanets, togglePlay }
     }
 
     return (
-        <section className='controls' onSubmit={(e) => createPlanet(e)}>
-            <form className='properties'>
-                <input name='mass' placeholder='mass' type='number' required />
-                <input name='radius' placeholder='radius' type='number' required />
-                <input name='xPosition' placeholder='x position' type='number' required />
-                <input name='yPosition' placeholder='y position' type='number' required />
-                <input name='xVelocity' placeholder='x velocity' type='number' required />
-                <input name='yVelocity' placeholder='y velocity' type='number' required />
-                <input name='color' placeholder='color' type='text' required />
-                <button className='create-planet-button' type='submit' >Create Planet</button>
-            </form>
-            <button onClick={togglePlay}>{play ? 'Pause' : 'Play' }</button>
-            <button onClick={clearPlanets}>Clear Planets</button>
-        </section>
+        <div className='controls'>
+            <button className='toggle-visible-button' onClick={() => setVisible(!visible)}>Toggle</button>
+            {
+                visible
+                ?
+                <section className='controls-section' onSubmit={(e) => createPlanet(e)}>
+                        <form className='properties'>
+                            <input name='mass' placeholder='mass' type='number' required />
+                            <input name='radius' placeholder='radius' type='number' required />
+                            <input name='xPosition' placeholder='x position' type='number' required />
+                            <input name='yPosition' placeholder='y position' type='number' required />
+                            <input name='xVelocity' placeholder='x velocity' type='number' required />
+                            <input name='yVelocity' placeholder='y velocity' type='number' required />
+                            <input name='color' placeholder='color' type='text' required />
+                            <button className='create-planet-button' type='submit' >Create Planet</button>
+                        </form>
+                        <button onClick={togglePlay}>{play ? 'Pause' : 'Play' }</button>
+                        <button onClick={clearPlanets}>Clear Planets</button>
+                </section>
+                : null
+            }
+        </div>
     );
 }
 
