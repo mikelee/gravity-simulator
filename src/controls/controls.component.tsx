@@ -37,8 +37,8 @@ const Controls: React.FC<Props> = ({ play, addPlanet, clearPlanets, togglePlay }
             {
                 visible
                 ?
-                <section className='controls-section' onSubmit={(e) => createPlanet(e)}>
-                        <form className='properties'>
+                <section className='controls-section'>
+                        <form className='properties' onSubmit={(e) => createPlanet(e)}>
                             <input name='mass' placeholder='mass' type='number' required />
                             <input name='radius' placeholder='radius' type='number' required />
                             <input name='xPosition' placeholder='x position' type='number' required />
