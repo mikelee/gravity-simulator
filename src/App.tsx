@@ -10,10 +10,12 @@ import Planet from './planet';
 const DEFAULT_DRAG_MASS = 10 ** 24;
 
 function App() {
-    const [dragMass, setDragMass] = useState(DEFAULT_DRAG_MASS);
     const [planets, setPlanets] = useState<Planet[]>([]);
     const [play, setPlay] = useState(true);
-
+    // drag controls
+    const [dragColor, setDragColor] = useState<'red' | 'green' | 'blue' | 'yellow'>('red');
+    const [dragMass, setDragMass] = useState(DEFAULT_DRAG_MASS);
+    
     const addPlanet = (planet: Planet) => {
         setPlanets([
             ...planets,
@@ -31,8 +33,8 @@ function App() {
     
     return (
         <div className='app'>
-            <Universe dragMass={dragMass} planets={planets} play={play} addPlanet={addPlanet} />
-            <Controls addPlanet={addPlanet} play={play} togglePlay={togglePlay} clearPlanets={clearPlanets} dragMass={dragMass} setDragMass={setDragMass} />
+            <Universe dragColor={dragColor} dragMass={dragMass} planets={planets} play={play} addPlanet={addPlanet} />
+            <Controls addPlanet={addPlanet} play={play} togglePlay={togglePlay} clearPlanets={clearPlanets} dragColor={dragColor} setDragColor={setDragColor} dragMass={dragMass} setDragMass={setDragMass} />
         </div>
     );
 }

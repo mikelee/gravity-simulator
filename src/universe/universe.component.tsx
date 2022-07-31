@@ -6,13 +6,14 @@ import './universe.styles.scss';
 import Planet from '../planet';
 
 interface Props {
+    dragColor: 'red' | 'green' | 'blue' | 'yellow',
     dragMass: number,
     planets: Planet[],
     play: boolean,
     addPlanet: (planet: Planet) => void
 }
 
-const Universe: React.FC<Props> = ({dragMass, planets, play, addPlanet }) => {
+const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlanet }) => {
     const handleMouseMove = (e: any) => {
         setLineEnd({
             x: e.clientX,
@@ -237,7 +238,7 @@ const Universe: React.FC<Props> = ({dragMass, planets, play, addPlanet }) => {
         const xVelocity = -deltaX / DRAG_SENSITIVITY;
         const yVelocity = -deltaY / DRAG_SENSITIVITY;
 
-        addPlanet(new Planet(dragMass, 10, startX, startY, xVelocity, yVelocity, 'red'));
+        addPlanet(new Planet(dragMass, 10, startX, startY, xVelocity, yVelocity, dragColor));
     }
 
     return (

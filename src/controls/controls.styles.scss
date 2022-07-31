@@ -17,6 +17,41 @@
             display: flex;
             flex-direction: column;
         }
+
+        .color-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            & > button {
+                height: 24px;
+                width: 24px;
+                border: none;
+                border-radius: 100px;
+                cursor: pointer;
+            }
+
+            .selected-color {
+                border: 1px solid white;
+                transform: scale(.75);
+            }
+
+            .red-button {
+                background-color: red;
+            }
+
+            .green-button {
+                background-color: green;
+            }
+
+            .blue-button {
+                background-color: blue;
+            }
+
+            .yellow-button {
+                background-color: yellow;
+            }
+        }
     }
 
     form {

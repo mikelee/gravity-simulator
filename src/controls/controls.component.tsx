@@ -5,15 +5,17 @@ import './controls.styles.scss';
 import Planet from '../planet';
 
 interface Props {
+    dragColor: 'red' | 'green' | 'blue' | 'yellow',
     dragMass: number,
     play: boolean,
     addPlanet: (planet: Planet) => void,
     clearPlanets: () => void,
+    setDragColor: React.Dispatch<React.SetStateAction<'red' | 'green' | 'blue' | 'yellow'>>,
     setDragMass: React.Dispatch<React.SetStateAction<number>>,
     togglePlay: () => void
 }
 
-const Controls: React.FC<Props> = ({ dragMass, play, addPlanet, clearPlanets, setDragMass, togglePlay }) => {
+const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clearPlanets, setDragColor, setDragMass, togglePlay }) => {
     // in increments of 10^24. To 10 decimal places
     const DEFAULT_DRAG_MASS = Math.round((dragMass / 10 ** 24) * 10 ** 10) / 10 ** 10;
 
@@ -24,6 +26,14 @@ const Controls: React.FC<Props> = ({ dragMass, play, addPlanet, clearPlanets, se
         const mass = value * 10 ** 24;
 
         setDragMass(mass);
+    }
+
+    const changeDragColor = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        const color = (e.target as HTMLButtonElement).name;
+
+        if (color) {
+            setDragColor((color as 'red' | 'green' | 'blue' | 'yellow'));
+        }
     }
 
     const createPlanet = (e: React.FormEvent<HTMLElement>) => {
@@ -69,6 +79,15 @@ const Controls: React.FC<Props> = ({ dragMass, play, addPlanet, clearPlanets, se
                     </section>
                     <section>
                         <h1>Drag controls</h1>
+                        <section>
+                            <h2>Color</h2>
+                            <div className='color-buttons' onClick={e => changeDragColor(e)}>
+                                <button className={`red-button ${dragColor === 'red' ? 'selected-color' : null}`} name='red'></button>
+                                <button className={`green-button ${dragColor === 'green' ? 'selected-color' : null}`} name='green'></button>
+                                <button className={`blue-button ${dragColor === 'blue' ? 'selected-color' : null}`} name='blue'></button>
+                                <button className={`yellow-button ${dragColor === 'yellow' ? 'selected-color' : null}`} name='yellow'></button>
+                            </div>
+                        </section>
                         <section>
                             <h2>Mass (10^24 kg)</h2>
                             <input type='number' defaultValue={DEFAULT_DRAG_MASS} onChange={(e) => changeDragMass(e)} step='0.0000000001' />
