@@ -7,7 +7,10 @@ import Universe from './universe/universe.component';
 
 import Planet from './planet';
 
+const DEFAULT_DRAG_MASS = 10 ** 24;
+
 function App() {
+    const [dragMass, setDragMass] = useState(DEFAULT_DRAG_MASS);
     const [planets, setPlanets] = useState<Planet[]>([]);
     const [play, setPlay] = useState(true);
 
@@ -28,8 +31,8 @@ function App() {
     
     return (
         <div className='app'>
-            <Universe planets={planets} play={play} addPlanet={addPlanet} />
-            <Controls addPlanet={addPlanet} play={play} togglePlay={togglePlay} clearPlanets={clearPlanets} />
+            <Universe dragMass={dragMass} planets={planets} play={play} addPlanet={addPlanet} />
+            <Controls addPlanet={addPlanet} play={play} togglePlay={togglePlay} clearPlanets={clearPlanets} dragMass={dragMass} setDragMass={setDragMass} />
         </div>
     );
 }

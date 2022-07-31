@@ -5,15 +5,26 @@ import './controls.styles.scss';
 import Planet from '../planet';
 
 interface Props {
+    dragMass: number,
     play: boolean,
     addPlanet: (planet: Planet) => void,
     clearPlanets: () => void,
+    setDragMass: React.Dispatch<React.SetStateAction<number>>,
     togglePlay: () => void
 }
 
-const Controls: React.FC<Props> = ({ play, addPlanet, clearPlanets, togglePlay }) => {
+const Controls: React.FC<Props> = ({ dragMass, play, addPlanet, clearPlanets, setDragMass, togglePlay }) => {
+    // in increments of 10^24. To 10 decimal places
+    const DEFAULT_DRAG_MASS = Math.round((dragMass / 10 ** 24) * 10 ** 10) / 10 ** 10;
 
     const [visible, setVisible] = useState(true);
+
+    const changeDragMass = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Number(e.target.value);
+        const mass = value * 10 ** 24;
+
+        setDragMass(mass);
+    }
 
     const createPlanet = (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault();
@@ -55,6 +66,13 @@ const Controls: React.FC<Props> = ({ play, addPlanet, clearPlanets, togglePlay }
                         <h1>Play Back</h1>
                         <button onClick={togglePlay}>{play ? 'Pause' : 'Play' }</button>
                         <button onClick={clearPlanets}>Clear Planets</button>
+                    </section>
+                    <section>
+                        <h1>Drag controls</h1>
+                        <section>
+                            <h2>Mass (10^24 kg)</h2>
+                            <input type='number' defaultValue={DEFAULT_DRAG_MASS} onChange={(e) => changeDragMass(e)} step='0.0000000001' />
+                        </section>
                     </section>
                 </section>
                 : null
