@@ -6,9 +6,17 @@
 
     .controls-section {
         display: flex;
-        height: 20rem;
+        justify-content: space-between;
         width: 100%;
+        padding: 16px;
         background-color: #333;
+        color: #CCCCCC;
+        box-sizing: border-box;
+
+        section {
+            display: flex;
+            flex-direction: column;
+        }
     }
 
     form {

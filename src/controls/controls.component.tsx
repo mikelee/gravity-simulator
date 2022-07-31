@@ -38,6 +38,8 @@ const Controls: React.FC<Props> = ({ play, addPlanet, clearPlanets, togglePlay }
                 visible
                 ?
                 <section className='controls-section'>
+                    <section>
+                        <h1>Create Planet</h1>
                         <form className='properties' onSubmit={(e) => createPlanet(e)}>
                             <input name='mass' placeholder='mass' type='number' required />
                             <input name='radius' placeholder='radius' type='number' required />
@@ -48,8 +50,12 @@ const Controls: React.FC<Props> = ({ play, addPlanet, clearPlanets, togglePlay }
                             <input name='color' placeholder='color' type='text' required />
                             <button className='create-planet-button' type='submit' >Create Planet</button>
                         </form>
+                    </section>
+                    <section>
+                        <h1>Play Back</h1>
                         <button onClick={togglePlay}>{play ? 'Pause' : 'Play' }</button>
                         <button onClick={clearPlanets}>Clear Planets</button>
+                    </section>
                 </section>
                 : null
             }
