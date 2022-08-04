@@ -39,13 +39,15 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
     const createPlanet = (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault();
 
-        const mass: number = parseInt((e.target as HTMLFormElement).mass.value);
+        let mass: number = parseInt((e.target as HTMLFormElement).mass.value);
         const radius: any = parseInt((e.target as HTMLFormElement).radius.value);
         const xPosition: number = parseInt((e.target as HTMLFormElement).xPosition.value);
         const yPosition: number = parseInt((e.target as HTMLFormElement).yPosition.value);
         const xVelocity: number = parseInt((e.target as HTMLFormElement).xVelocity.value);
         const yVelocity: number = parseInt((e.target as HTMLFormElement).yVelocity.value);
         const color: string = (e.target as HTMLFormElement).color.value;
+
+        mass *= 10 ** 24;
 
         const newPlanet = new Planet(mass, radius, xPosition, yPosition, xVelocity, yVelocity, color);
 
@@ -68,7 +70,7 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                         <h1>Create Planet</h1>
                         <form className='properties' onSubmit={(e) => createPlanet(e)}>
                             <div className='inputs'>
-                                <input name='mass' placeholder='mass' type='number' required />
+                                <input name='mass' placeholder='mass (10^24 kg)' type='number' required />
                                 <input name='radius' placeholder='radius' type='number' required />
                                 <input name='xPosition' placeholder='x position' type='number' required />
                                 <input name='yPosition' placeholder='y position' type='number' required />
