@@ -67,20 +67,24 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                     <section>
                         <h1>Create Planet</h1>
                         <form className='properties' onSubmit={(e) => createPlanet(e)}>
-                            <input name='mass' placeholder='mass' type='number' required />
-                            <input name='radius' placeholder='radius' type='number' required />
-                            <input name='xPosition' placeholder='x position' type='number' required />
-                            <input name='yPosition' placeholder='y position' type='number' required />
-                            <input name='xVelocity' placeholder='x velocity' type='number' required />
-                            <input name='yVelocity' placeholder='y velocity' type='number' required />
-                            <input name='color' placeholder='color' type='text' required />
-                            <button className='create-planet-button' type='submit' >Create Planet</button>
+                            <div className='inputs'>
+                                <input name='mass' placeholder='mass' type='number' required />
+                                <input name='radius' placeholder='radius' type='number' required />
+                                <input name='xPosition' placeholder='x position' type='number' required />
+                                <input name='yPosition' placeholder='y position' type='number' required />
+                                <input name='xVelocity' placeholder='x velocity' type='number' required />
+                                <input name='yVelocity' placeholder='y velocity' type='number' required />
+                                <input name='color' placeholder='color' type='text' required />
+                            </div>
+                            <button className='button create-planet-button' type='submit' >Create Planet</button>
                         </form>
                     </section>
                     <section>
                         <h1>Play Back</h1>
-                        <button onClick={togglePlay}>{play ? 'Pause' : 'Play' }</button>
-                        <button onClick={clearPlanets}>Clear Planets</button>
+                        <div className='play-back-buttons'>
+                            <button className='button' onClick={togglePlay}>{play ? 'Pause' : 'Play' }</button>
+                            <button className='button' onClick={clearPlanets}>Clear Planets</button>
+                        </div>
                     </section>
                     <section>
                         <h1>Drag controls</h1>
