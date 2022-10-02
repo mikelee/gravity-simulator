@@ -1,46 +1,69 @@
-# Getting Started with Create React App
+# Gravity Simulator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### _Play with gravity_
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+Create planets and watch how they influence each other's orbits.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
+- Create planets by dragging on the canvas or using the form
+- Choose the planet's mass, velocity, and color
+- Delete all planets
+- Play and pause
+- Show and hide the controls
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Tech
+- [TypeScript]
+- [Canvas]
+- [React]
+- [SASS]
 
-### `npm test`
+[Canvas]: <https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API>
+[React]: <https://reactjs.org/>
+[SASS]: <https://sass-lang.com/>
+[TypeScript]: <https://www.typescriptlang.org/>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+1. Clone repo ``` git clone https://github.com/mikelee/gravity-simulator.git ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Go to root of project
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Install packages ``` npm i ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Start app ```npm start ```
 
-### `npm run eject`
+## How To Use
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Create Planet
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+You can create a planet two different ways
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Using Drag
+- Click and hold anywhere on the canvas
+- Drag the mouse to control the speed and direction of the planet
+- Release to create the planet
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### Using Form
+- Go to the "Create Planet" section of the controls
+- Enter values for all of the properties
+- Click "Create Planet"
 
-## Learn More
+### Change Planet Properties For Dragging To Create A Planet
+- Go to the "Drag Controls" section of the controls
+- Click on a color to change the color of newly created planets
+- Enter a mass to change the mass of newly created planets
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Delete Planets
+- Go to the "Play Back" section of the controls
+- Click "Clear Planets" to delete all planets
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Play/Pause
+- Go to the "Play Back" section of the controls
+- Click "Pause" to pause and "Play" to Play
+
+### Show/Hide Controls
+- Click the arrow on the top left of the controls to hide
+- Click the arrow on the bottom left of the screen to show the controls
