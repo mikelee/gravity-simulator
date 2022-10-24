@@ -24,7 +24,9 @@ const calcGravityForces = (planet: Planet, otherPlanets: Planet[]) => {
 
         const deltaX = Math.abs(otherPlanet.x - planet.x);
         const deltaY = Math.abs(otherPlanet.y - planet.y);
-        const distance = Math.sqrt((deltaX ** 2) + (deltaY ** 2));
+        let distance = Math.sqrt((deltaX ** 2) + (deltaY ** 2));
+        // make distance in terms of 1 million kilometers
+        distance *= (10 ** 6);
 
         const gravity = calcGravity(m1, m2, distance);
 
@@ -35,8 +37,10 @@ const calcGravityForces = (planet: Planet, otherPlanets: Planet[]) => {
 }
 
 const calcGravity = (m1: number, m2: number, r: number) => {
+    const meters = r * 1000;
+
     const G = 6.674 * (10 ** -11);
-    const f = G * ((m1 * m2) / (r ** 2));
+    const f = G * ((m1 * m2) / (meters ** 2));
 
     return f;
 }
