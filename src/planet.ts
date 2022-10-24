@@ -17,12 +17,28 @@ export default class Planet {
         this.color = color;
     }
 
+    static colors: { [key: string]: string } = {
+        red: '#F06962',
+        redDark: '#A83832',
+        green: '#67D45D',
+        greenDark: '#398732',
+        blue: '#5576E6',
+        blueDark: '#314A9E',
+        yellow: '#E6E655',
+        yellowDark: '#A1A127'
+    }
+
     draw(ctx: CanvasRenderingContext2D) {
         const x = Math.round(this.x);
         const y = Math.round(this.y);
 
         ctx.beginPath();
-        ctx.fillStyle = this.color;
+
+        const gradient = ctx.createRadialGradient(x, y, this.radius, x - this.radius, y + this.radius, this.radius);
+        gradient.addColorStop(0, Planet.colors[this.color + 'Dark']);
+        gradient.addColorStop(.9, Planet.colors[this.color]);
+        ctx.fillStyle = gradient;
+
         ctx.arc(x, y, this.radius, 0, 2* Math.PI, false);
         ctx.fill();
     }
