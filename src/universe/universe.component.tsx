@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { calcDeltaVelocities } from '../physicsFunctions';
+import useWindowSize from '../hooks/useWindow';
 
 import './universe.styles.scss';
 
@@ -28,11 +29,11 @@ const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlan
     let rafId: number;
     let canvas: HTMLCanvasElement | null;
     let ctx: CanvasRenderingContext2D | null;
-    const WIDTH = window.innerWidth;
-    const HEIGHT = window.innerHeight;
 
     const [lineStart, setLineStart] = useState<{ x: number, y: number } | null>(null);
     const [lineEnd, setLineEnd] = useState<{ x: number, y: number } | null>(null);
+
+    const windowSize = useWindowSize();
 
     useEffect(() => {
         if (canvasRef.current !== undefined) canvas = canvasRef.current;
@@ -42,7 +43,7 @@ const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlan
         rafId = rafIdRef.current;
 
         if (ctx !== null) {
-            ctx?.clearRect(0, 0, WIDTH, HEIGHT);
+            ctx?.clearRect(0, 0, windowSize.width, windowSize.height);
             planets.forEach(planet => {
                 planet.draw(ctx as CanvasRenderingContext2D);
             });
@@ -59,7 +60,7 @@ const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlan
         if (rafId !== rafIdRef.current) return;
         if (!play) return;
 
-        ctx?.clearRect(0, 0, WIDTH, HEIGHT);
+        ctx?.clearRect(0, 0, windowSize.width, windowSize.height);
 
         planets.forEach(planet => {
             const otherPlanets = planets.filter(otherPlanet => otherPlanet !== planet);
@@ -243,7 +244,7 @@ const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlan
 
     return (
         <div className='universe'>
-            <canvas ref={canvasRef} id='canvas' width={WIDTH} height={HEIGHT} onMouseDown={e => clickCanvas(e)} onMouseUp={e => releaseClick(e)} ></canvas>
+            <canvas ref={canvasRef} id='canvas' width={windowSize.width} height={windowSize.height} onMouseDown={e => clickCanvas(e)} onMouseUp={e => releaseClick(e)} ></canvas>
         </div>
     );
 }
