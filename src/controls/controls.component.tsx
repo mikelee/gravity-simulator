@@ -54,6 +54,16 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
         addPlanet(newPlanet);
     }
 
+    const setDragType = (type: string) => {
+        if (type === 'planet') {
+            setDragMass(10 ** 24);
+            setDragColor('blue');
+        } else {
+            setDragMass(10 ** 30);
+            setDragColor('yellow');
+        }
+    }
+
     return (
         <div className='controls'>
             <button className='toggle-visible-button' onClick={() => setVisible(!visible)}>
@@ -102,6 +112,14 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                         <section>
                             <h2>Mass (10^24 kg)</h2>
                             <input type='number' defaultValue={DEFAULT_DRAG_MASS} onChange={(e) => changeDragMass(e)} step='0.0000000001' />
+                        </section>
+                        <section>
+                            <h2>Planet</h2>
+                            <button onClick={() => setDragType('planet')}>Set To Planet</button>
+                        </section>
+                        <section>
+                            <h2>Sun</h2>
+                            <button onClick={() => setDragType('sun')}>Set To Sun</button>
                         </section>
                     </section>
                 </section>
