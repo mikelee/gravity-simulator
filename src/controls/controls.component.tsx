@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 import './controls.styles.scss';
+import { ReactComponent as PlanetIcon } from '../assets/planet.svg';
+import { ReactComponent as SunIcon } from '../assets/sun.svg';
 
 import Planet from '../planet';
 
@@ -124,8 +126,12 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                     <div className='buttons'>
                         <button className='button' onClick={clearPlanets}>Clear</button>
                         <button className='button' onClick={togglePlay}>{play ? 'Pause' : 'Play' }</button>
-                        <button onClick={() => setDragType('sun')}>Sun</button>
-                        <button onClick={() => setDragType('planet')}>Planet</button>
+                        <button onClick={() => setDragType('sun')}>
+                            <SunIcon />
+                        </button>
+                        <button onClick={() => setDragType('planet')}>
+                            <PlanetIcon />
+                        </button>
                     </div>
                 </section>
                 : null
