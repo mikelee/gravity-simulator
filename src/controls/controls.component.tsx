@@ -127,10 +127,10 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                         </section>
                     </div>
                     <div className='buttons'>
-                        <button className='button' onClick={clearPlanets}>
+                        <button onClick={clearPlanets}>
                             <ClearIcon />
                         </button>
-                        <button className='button' onClick={togglePlay}>
+                        <button onClick={togglePlay}>
                             { play ? <PauseIcon /> : <PlayIcon /> }
                         </button>
                         <button onClick={() => setDragType('sun')}>
