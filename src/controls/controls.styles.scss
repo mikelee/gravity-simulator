@@ -53,6 +53,16 @@
                 margin: 0 16px;
                 border: none;
             }
+
+             .selected .fill-1 {
+                fill: #D14B4B;
+                transition: fill .5s;
+            }
+
+             .selected .fill-2 {
+                fill: #A03434;
+                transition: fill .5s;
+            }
         }
 
         .drag-section,

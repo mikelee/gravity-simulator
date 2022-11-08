@@ -27,6 +27,7 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
     const [visible, setVisible] = useState(true);
     const [dragVisible, setDragVisible] = useState(false);
     const [formVisible, setFormVisible] = useState(false);
+    const [selected, setSelected] = useState<'planet' | 'sun' | null>(null);
 
     const changeDragMass = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
@@ -65,9 +66,11 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
         if (type === 'planet') {
             setDragMass(10 ** 24);
             setDragColor('blue');
+            setSelected('planet');
         } else {
             setDragMass(10 ** 30);
             setDragColor('yellow');
+            setSelected('sun');
         }
     }
 
@@ -133,10 +136,10 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                         <button onClick={togglePlay}>
                             { play ? <PauseIcon /> : <PlayIcon /> }
                         </button>
-                        <button onClick={() => setDragType('sun')}>
+                        <button className={ selected === 'sun' ? 'selected' : '' } onClick={() => setDragType('sun')}>
                             <SunIcon />
                         </button>
-                        <button onClick={() => setDragType('planet')}>
+                        <button className={ selected === 'planet' ? 'selected' : '' } onClick={() => setDragType('planet')}>
                             <PlanetIcon />
                         </button>
                     </div>
