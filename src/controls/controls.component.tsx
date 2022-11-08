@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import './controls.styles.scss';
+import { ReactComponent as ClearIcon } from '../assets/clear.svg';
 import { ReactComponent as PauseIcon } from '../assets/pause.svg';
 import { ReactComponent as PlanetIcon } from '../assets/planet.svg';
 import { ReactComponent as PlayIcon } from '../assets/play.svg';
@@ -126,7 +127,9 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                         </section>
                     </div>
                     <div className='buttons'>
-                        <button className='button' onClick={clearPlanets}>Clear</button>
+                        <button className='button' onClick={clearPlanets}>
+                            <ClearIcon />
+                        </button>
                         <button className='button' onClick={togglePlay}>
                             { play ? <PauseIcon /> : <PlayIcon /> }
                         </button>
