@@ -27,13 +27,22 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
     const [visible, setVisible] = useState(true);
     const [dragVisible, setDragVisible] = useState(false);
     const [formVisible, setFormVisible] = useState(false);
-    const [selected, setSelected] = useState<'planet' | 'sun' | null>(null);
+    const [massFactor, setMassFactor] = useState(1);
+    const [selected, setSelected] = useState<'planet' | 'sun'>('planet');
 
     const changeDragMass = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
-        const mass = value * 10 ** 24;
+        setMassFactor(value);
 
-        setDragMass(mass);
+        let massExponent;
+
+        if (selected == 'planet') {
+            massExponent = 10 ** 24;
+        } else {
+            massExponent = 10 ** 30;
+        }
+
+        setDragMass(value * massExponent);
     }
 
     const changeDragColor = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -55,22 +64,26 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
         const yVelocity: number = parseInt((e.target as HTMLFormElement).yVelocity.value);
         const color: string = (e.target as HTMLFormElement).color.value;
 
-        mass *= 10 ** 24;
+        if (selected == 'planet') {
+            mass *= 10 ** 24;
+        } else {
+            mass *= 10 ** 30;
+        }
 
         const newPlanet = new Planet(mass, radius, xPosition, yPosition, xVelocity, yVelocity, color);
 
         addPlanet(newPlanet);
     }
 
-    const setDragType = (type: string) => {
+    const setDragType = (type: 'planet' | 'sun') => {
+        setSelected(type);
+
         if (type === 'planet') {
-            setDragMass(10 ** 24);
+            setDragMass(massFactor * 10 ** 24);
             setDragColor('blue');
-            setSelected('planet');
         } else {
-            setDragMass(10 ** 30);
+            setDragMass(massFactor * 10 ** 30);
             setDragColor('yellow');
-            setSelected('sun');
         }
     }
 
@@ -103,20 +116,26 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                                             </div>
                                         </section>
                                         <section>
-                                            <h2>Mass (10^24 kg)</h2>
-                                            <input type='number' defaultValue={DEFAULT_DRAG_MASS} onChange={(e) => changeDragMass(e)} step='0.0000000001' />
+                                            <h2>
+                                                {
+                                                    selected === 'planet'
+                                                    ? 'Mass (10^24 kg)'
+                                                    : 'Mass (10^30 kg)'
+                                                }
+                                            </h2>
+                                            <input type='number' defaultValue={massFactor} onChange={(e) => changeDragMass(e)} step='0.0000000001' />
                                         </section>
                                     </div>
                                 : null
                             }
                         </section>
                         <section className='form-section'>
-                            <button className='form-button' onClick={() => setFormVisible(!formVisible)} >Form</button>
+                            <button className='dropdown-button form-button' onClick={() => setFormVisible(!formVisible)} >Form</button>
                             {
                                 formVisible
                                 ?
                                     <form className='properties' onSubmit={(e) => createPlanet(e)}>
-                                        <input name='mass' placeholder='mass (10^24 kg)' type='number' required />
+                                        <input name='mass' placeholder={`mass (10^${selected === 'planet' ? '24' : '30'} kg)`} type='number' required />
                                         <input name='radius' placeholder='radius' type='number' required />
                                         <input name='xPosition' placeholder='x position' type='number' required />
                                         <input name='yPosition' placeholder='y position' type='number' required />
