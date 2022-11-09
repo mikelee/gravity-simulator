@@ -24,6 +24,10 @@ interface Props {
 const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clearPlanets, setDragColor, setDragMass, togglePlay }) => {
     // in increments of 10^24. To 10 decimal places
     const DEFAULT_DRAG_MASS = Math.round((dragMass / 10 ** 24) * 10 ** 10) / 10 ** 10;
+    const MASS_EXPONENT = {
+        planet: 24,
+        sun: 30
+    };
 
     const [visible, setVisible] = useState(true);
     const [dragVisible, setDragVisible] = useState(false);
@@ -37,13 +41,8 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
         if (value > 0) {
             setMassFactor(value);
     
-            let massExponent;
-    
-            if (selected == 'planet') {
-                massExponent = 10 ** 24;
-            } else {
-                massExponent = 10 ** 30;
-            }
+            const massExponent = 10 ** MASS_EXPONENT[selected];
+
             setDragMass(value * massExponent);
         }
     }
@@ -67,11 +66,7 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
         const yVelocity: number = parseInt((e.target as HTMLFormElement).yVelocity.value);
         const color: string = (e.target as HTMLFormElement).color.value;
 
-        if (selected == 'planet') {
-            mass *= 10 ** 24;
-        } else {
-            mass *= 10 ** 30;
-        }
+        mass *= 10 ** MASS_EXPONENT[selected];
 
         const newPlanet = new Planet(mass, radius, xPosition, yPosition, xVelocity, yVelocity, color);
 
@@ -81,11 +76,13 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
     const setDragType = (type: 'planet' | 'sun') => {
         setSelected(type);
 
+        const mass = massFactor * 10 ** MASS_EXPONENT[type];
+
+        setDragMass(mass);
+
         if (type === 'planet') {
-            setDragMass(massFactor * 10 ** 24);
             setDragColor('blue');
         } else {
-            setDragMass(massFactor * 10 ** 30);
             setDragColor('yellow');
         }
     }
@@ -119,13 +116,7 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                                             </div>
                                         </section>
                                         <section>
-                                            <h2>
-                                                {
-                                                    selected === 'planet'
-                                                    ? 'Mass (10^24 kg)'
-                                                    : 'Mass (10^30 kg)'
-                                                }
-                                            </h2>
+                                            <h2>{`Mass (10^${MASS_EXPONENT[selected]} kg)`}</h2>
                                             <input type='number' defaultValue={massFactor} onChange={(e) => changeDragMass(e)} step='0.0000000001' />
                                         </section>
                                     </div>
@@ -138,7 +129,7 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                                 formVisible
                                 ?
                                     <form className='properties' onSubmit={(e) => createPlanet(e)}>
-                                        <input name='mass' placeholder={`mass (10^${selected === 'planet' ? '24' : '30'} kg)`} type='number' required />
+                                        <input name='mass' placeholder={`mass (10^${MASS_EXPONENT[selected]} kg)`} type='number' required />
                                         <input name='radius' placeholder='radius' type='number' required />
                                         <input name='xPosition' placeholder='x position' type='number' required />
                                         <input name='yPosition' placeholder='y position' type='number' required />
