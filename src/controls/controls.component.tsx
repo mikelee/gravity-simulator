@@ -7,15 +7,16 @@ import { ReactComponent as PlanetIcon } from '../assets/planet.svg';
 import { ReactComponent as PlayIcon } from '../assets/play.svg';
 import { ReactComponent as SunIcon } from '../assets/sun.svg';
 
+import { Color } from '../App';
 import Planet from '../planet';
 
 interface Props {
-    dragColor: 'red' | 'green' | 'blue' | 'yellow',
+    dragColor: Color,
     dragMass: number,
     play: boolean,
     addPlanet: (planet: Planet) => void,
     clearPlanets: () => void,
-    setDragColor: React.Dispatch<React.SetStateAction<'red' | 'green' | 'blue' | 'yellow'>>,
+    setDragColor: React.Dispatch<React.SetStateAction<Color>>,
     setDragMass: React.Dispatch<React.SetStateAction<number>>,
     togglePlay: () => void
 }
@@ -51,7 +52,7 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
         const color = (e.target as HTMLButtonElement).name;
 
         if (color) {
-            setDragColor((color as 'red' | 'green' | 'blue' | 'yellow'));
+            setDragColor((color as Color));
         }
     }
 
