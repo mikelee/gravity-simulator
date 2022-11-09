@@ -32,17 +32,19 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
 
     const changeDragMass = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
-        setMassFactor(value);
 
-        let massExponent;
-
-        if (selected == 'planet') {
-            massExponent = 10 ** 24;
-        } else {
-            massExponent = 10 ** 30;
+        if (value > 0) {
+            setMassFactor(value);
+    
+            let massExponent;
+    
+            if (selected == 'planet') {
+                massExponent = 10 ** 24;
+            } else {
+                massExponent = 10 ** 30;
+            }
+            setDragMass(value * massExponent);
         }
-
-        setDragMass(value * massExponent);
     }
 
     const changeDragColor = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
