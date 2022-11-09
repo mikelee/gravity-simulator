@@ -101,7 +101,7 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                 <section className='controls-section'>
                     <div className='dropdowns'>
                         <section className='drag-section'>
-                            <button className='drag-button' onClick={() => setDragVisible(!dragVisible)} >Drag Settings</button>
+                            <button className='dropdown-button drag-button' onClick={() => setDragVisible(!dragVisible)} >Drag Settings</button>
                             {
                                 dragVisible
                                 ?
