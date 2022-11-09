@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import './controls.styles.scss';
+import { ReactComponent as ArrowIcon } from '../assets/arrow.svg';
 import { ReactComponent as ClearIcon } from '../assets/clear.svg';
 import { ReactComponent as PauseIcon } from '../assets/pause.svg';
 import { ReactComponent as PlanetIcon } from '../assets/planet.svg';
@@ -89,11 +90,8 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
 
     return (
         <div className='controls'>
-            <button className='toggle-visible-button' onClick={() => setVisible(!visible)}>
-                <svg className={`arrow-icon ${visible ? 'rotate-arrow' : null}`} width="104" height="92" viewBox="0 0 104 92" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="95" width="10" height="100" rx="5" transform="rotate(30 95 0)" fill="white"/>
-                    <rect y="5" width="10" height="100" rx="5" transform="rotate(-30 0 5)" fill="white"/>
-                </svg>
+            <button className={`toggle-visible-button ${visible ? 'rotate-arrow' : ''}`} onClick={() => setVisible(!visible)}>
+                <ArrowIcon />
             </button>
             {
                 visible

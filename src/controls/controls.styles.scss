@@ -12,19 +12,18 @@
         position: absolute;
         top: 0;
         left: 0;
+        height: 32px;
         background-color: transparent;
+        margin: 32px 0 0 32px;
         border: none;
         border-radius: 0px 0px 8px 0;
-        
-        .arrow-icon {
-            height: 16px;
-            width: fit-content;
-            padding: 8px;
-            transition: all .5s;
+
+        & svg {
+            transition: transform .5s;
         }
 
-        .rotate-arrow {
-            transform: rotateX(180deg);
+        &.rotate-arrow svg {
+            transform: rotateY(180deg);
         }
     }
 
