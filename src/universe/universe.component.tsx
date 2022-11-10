@@ -239,7 +239,7 @@ const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlan
         const xVelocity = -deltaX / DRAG_SENSITIVITY;
         const yVelocity = -deltaY / DRAG_SENSITIVITY;
 
-        addPlanet(new Planet(dragMass, 10, startX, startY, xVelocity, yVelocity, dragColor));
+        addPlanet(new Planet(dragMass, startX, startY, xVelocity, yVelocity, dragColor));
     }
 
     return (

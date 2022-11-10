@@ -7,9 +7,9 @@ export default class Planet {
     yVelocity: number;
     color: string;
 
-    constructor(mass: number, radius: number, x: number, y: number, xVelocity: number, yVelocity: number, color: string) {
+    constructor(mass: number, x: number, y: number, xVelocity: number, yVelocity: number, color: string) {
         this.mass = mass;
-        this.radius = radius;
+        this.radius = this.calcRadius(mass);
         this.x = x;
         this.y = y;
         this.xVelocity = xVelocity;
@@ -51,6 +51,33 @@ export default class Planet {
         this.updateVelocity(xAcceleration, yAcceleration);
     }
 
+    calcRadius(mass: number) {
+        const MIN_RADIUS = 6;
+        const MAX_RADIUS = 20;
+        const MIN_MASS = 10 ** 24;
+        const MAX_MASS = 10 ** 30;
+        
+        const radiusRange = MAX_RADIUS - MIN_RADIUS;
+        const numPossibleDeviations = Math.log10(MAX_MASS / MIN_MASS);
+        // radius increment for each 10^x
+        const radiusIncrement = radiusRange / numPossibleDeviations;
+
+        if (mass <= MIN_MASS) {
+            return MIN_RADIUS;
+        } else if (mass >= MAX_MASS) {
+            return MAX_RADIUS;
+        } else {
+            const diff = mass / MIN_MASS;
+            const log = Math.log10(diff);
+            // each deviation is 10^x
+            const deviations = Math.floor(log);
+
+            const radius = MIN_RADIUS + (radiusIncrement * deviations);
+
+            return radius;
+        }
+    }
+
     draw(ctx: CanvasRenderingContext2D) {
         const x = Math.round(this.x);
         const y = Math.round(this.y);
@@ -85,5 +112,21 @@ export default class Planet {
 
         this.xVelocity += deltaX;
         this.yVelocity += deltaY;
+
+        // const max = 1000;
+
+        // if (this.xVelocity > max) {
+        //     this.xVelocity = max;
+        // } else if (this.xVelocity < -max) {
+        //     this.xVelocity = -max;
+        // }
+
+        // if (this.yVelocity > max) {
+        //     this.yVelocity = max;
+        // } else if (this.yVelocity < -max) {
+        //     this.yVelocity = -max;
+        // }
+
+        // console.log(this.xVelocity, this.yVelocity)
     }
 }
