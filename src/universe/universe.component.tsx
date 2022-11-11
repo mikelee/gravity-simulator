@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { calcDeltaVelocities } from '../physicsFunctions';
 import useWindowSize from '../hooks/useWindow';
 
 import './universe.styles.scss';
