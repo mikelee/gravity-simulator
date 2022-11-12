@@ -1,4 +1,7 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export default class Planet {
+    id: string;
     radius: number;
     mass: number;
     x: number;
@@ -8,6 +11,7 @@ export default class Planet {
     color: string;
 
     constructor(mass: number, x: number, y: number, xVelocity: number, yVelocity: number, color: string) {
+        this.id = uuidv4();
         this.mass = mass;
         this.radius = this.calcRadius(mass);
         this.x = x;
