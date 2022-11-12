@@ -112,21 +112,5 @@ export default class Planet {
 
         this.xVelocity += deltaX;
         this.yVelocity += deltaY;
-
-        // const max = 1000;
-
-        // if (this.xVelocity > max) {
-        //     this.xVelocity = max;
-        // } else if (this.xVelocity < -max) {
-        //     this.xVelocity = -max;
-        // }
-
-        // if (this.yVelocity > max) {
-        //     this.yVelocity = max;
-        // } else if (this.yVelocity < -max) {
-        //     this.yVelocity = -max;
-        // }
-
-        // console.log(this.xVelocity, this.yVelocity)
     }
 }
