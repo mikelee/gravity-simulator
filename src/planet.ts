@@ -32,12 +32,12 @@ export default class Planet {
         yellowDark: '#A1A127'
     }
 
-    static calcGravity = (m1: number, m2: number, r: number) => {
+    static calcGravity(m1: number, m2: number, r: number) {
         const G = 6.674 * (10 ** -11);
         return G * ((m1 * m2) / (r ** 2));
     } 
 
-    calcDeltaVelocities = (otherPlanet: Planet) => {
+    calcDeltaVelocities(otherPlanet: Planet) {
         const deltaX = otherPlanet.x - this.x;
         const deltaY = otherPlanet.y - this.y;
         let distance = Math.sqrt((deltaX ** 2) + (deltaY ** 2));
