@@ -82,6 +82,38 @@ export default class Planet {
         }
     }
 
+    checkCollision(otherPlanet: Planet) {
+        const deltaX = otherPlanet.x - this.x;
+        const deltaY = otherPlanet.y - this.y;
+        const distance = Math.sqrt((deltaX ** 2) + (deltaY ** 2));
+
+        let larger;
+        let smaller;
+
+        if (this.mass >= otherPlanet.mass) {
+            larger = this;
+            smaller = otherPlanet;
+        } else {
+            larger = otherPlanet;
+            smaller = this;
+        }
+
+        const collisionDistance = larger.radius;
+
+        if (distance <= collisionDistance) {
+            const finalXVelocity = (larger.mass * larger.xVelocity + smaller.mass * smaller.xVelocity) / (larger.mass + smaller.mass);
+            const finalYVelocity = (larger.mass * larger.yVelocity + smaller.mass * smaller.yVelocity) / (larger.mass + smaller.mass);
+
+            larger.setVelocity(finalXVelocity, finalYVelocity);
+
+            larger.mass += smaller.mass;
+
+            return larger === this ? 'survived' : 'died';
+        }
+
+        return null;
+    }
+
     draw(ctx: CanvasRenderingContext2D) {
         const x = Math.round(this.x);
         const y = Math.round(this.y);
@@ -107,6 +139,11 @@ export default class Planet {
     move() {
         this.x += this.xVelocity;
         this.y += this.yVelocity;
+    }
+
+    setVelocity(xVelocity: number, yVelocity: number) {
+        this.xVelocity = xVelocity;
+        this.yVelocity = yVelocity;
     }
 
     updateVelocity(deltaX: number, deltaY: number) {
