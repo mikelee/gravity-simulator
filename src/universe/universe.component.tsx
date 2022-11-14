@@ -67,7 +67,9 @@ const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlan
             otherPlanets.forEach(otherPlanet => {
                 planet.calcDeltaVelocities(otherPlanet);
             });
+        });
 
+        planets.forEach(planet => {
             planet.move();
             if (ctx) planet.draw(ctx);
         });
