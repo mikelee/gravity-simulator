@@ -70,6 +70,30 @@ const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlan
         });
 
         planets.forEach(planet => {
+            const otherPlanets = planets.filter(otherPlanet => otherPlanet !== planet);
+
+            otherPlanets.forEach(otherPlanet => {
+                const collision = planet.checkCollision(otherPlanet);
+
+                if (collision === 'survived') {
+                    // delete otherPlanet
+                    for (let i = 0; i < planets.length; i++) {
+                        if (planets[i].id === otherPlanet.id) {
+                            planets.splice(i, 1);
+                        }
+                    }
+                } else if (collision === 'died') {
+                    // delete planet
+                    for (let i = 0; i < planets.length; i++) {
+                        if (planets[i].id === planet.id) {
+                            planets.splice(i, 1);
+                        }
+                    }
+                }
+            });
+        });
+
+        planets.forEach(planet => {
             planet.move();
             if (ctx) planet.draw(ctx);
         });
