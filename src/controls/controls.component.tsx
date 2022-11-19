@@ -6,7 +6,7 @@ import { ReactComponent as ClearIcon } from '../assets/clear.svg';
 import { ReactComponent as PauseIcon } from '../assets/pause.svg';
 import { ReactComponent as PlanetIcon } from '../assets/planet.svg';
 import { ReactComponent as PlayIcon } from '../assets/play.svg';
-import { ReactComponent as SunIcon } from '../assets/sun.svg';
+import { ReactComponent as SunIcon } from '../assets/star.svg';
 
 import { Color } from '../App';
 import Planet from '../planet';
