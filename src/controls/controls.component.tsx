@@ -34,7 +34,7 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
     const [dragVisible, setDragVisible] = useState(false);
     const [formVisible, setFormVisible] = useState(false);
     const [massFactor, setMassFactor] = useState(1);
-    const [selected, setSelected] = useState<'planet' | 'star'>('planet');
+    const [selected, setSelected] = useState<'planet' | 'star'>('star');
 
     const changeDragMass = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);

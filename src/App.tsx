@@ -9,7 +9,7 @@ import Planet from './planet';
 
 export type Color = 'red' | 'green' | 'blue' | 'yellow' | 'purple';
 
-const DEFAULT_DRAG_MASS = 10 ** 24;
+const DEFAULT_DRAG_MASS = 10 ** 30;
 
 function App() {
     const [planets, setPlanets] = useState<Planet[]>([]);
