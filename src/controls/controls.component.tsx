@@ -59,11 +59,11 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
     const createPlanet = (e: React.FormEvent<HTMLElement>) => {
         e.preventDefault();
 
-        let mass: number = parseInt((e.target as HTMLFormElement).mass.value);
+        let mass: number = parseFloat((e.target as HTMLFormElement).mass.value);
         const xPosition: number = parseInt((e.target as HTMLFormElement).xPosition.value);
         const yPosition: number = parseInt((e.target as HTMLFormElement).yPosition.value);
-        const xVelocity: number = parseInt((e.target as HTMLFormElement).xVelocity.value);
-        const yVelocity: number = parseInt((e.target as HTMLFormElement).yVelocity.value);
+        const xVelocity: number = parseFloat((e.target as HTMLFormElement).xVelocity.value);
+        const yVelocity: number = parseFloat((e.target as HTMLFormElement).yVelocity.value);
         const color: string = (e.target as HTMLFormElement).color.value;
 
         mass *= 10 ** MASS_EXPONENT[selected];
@@ -126,11 +126,11 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                                 formVisible
                                 ?
                                     <form className='properties' onSubmit={(e) => createPlanet(e)}>
-                                        <input name='mass' placeholder={`mass (10^${MASS_EXPONENT[selected]} kg)`} type='number' required />
+                                        <input name='mass' placeholder={`mass (10^${MASS_EXPONENT[selected]} kg)`} type='number' step='.0000000001' required />
                                         <input name='xPosition' placeholder='x position' type='number' required />
                                         <input name='yPosition' placeholder='y position' type='number' required />
-                                        <input name='xVelocity' placeholder='x velocity' type='number' required />
-                                        <input name='yVelocity' placeholder='y velocity' type='number' required />
+                                        <input name='xVelocity' placeholder='x velocity' type='number' step='.0000000001' required />
+                                        <input name='yVelocity' placeholder='y velocity' type='number' step='.0000000001' required />
                                         <input name='color' placeholder='color' type='text' required />
                                         <button className='button create-planet-button' type='submit' >Create Planet</button>
                                     </form>
