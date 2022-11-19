@@ -3,10 +3,11 @@ import useWindowSize from '../hooks/useWindow';
 
 import './universe.styles.scss';
 
+import { Color } from '../App';
 import Planet from '../planet';
 
 interface Props {
-    dragColor: 'red' | 'green' | 'blue' | 'yellow' | 'purple',
+    dragColor: Color,
     dragMass: number,
     planets: Planet[],
     play: boolean,
