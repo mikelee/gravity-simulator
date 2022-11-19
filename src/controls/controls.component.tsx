@@ -133,7 +133,7 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                                         <input name='xVelocity' placeholder='x velocity' type='number' step='.0000000001' required />
                                         <input name='yVelocity' placeholder='y velocity' type='number' step='.0000000001' required />
                                         <input name='color' placeholder='color' type='text' required />
-                                        <button className='button create-planet-button' type='submit' >Create Planet</button>
+                                        <button className='button create-planet-button' type='submit'>Create {selected === 'planet' ? 'Planet' : 'Star'}</button>
                                     </form>
                                 : null
                             }
