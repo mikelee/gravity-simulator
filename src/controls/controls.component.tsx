@@ -64,11 +64,10 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
         const yPosition: number = parseInt((e.target as HTMLFormElement).yPosition.value);
         const xVelocity: number = parseFloat((e.target as HTMLFormElement).xVelocity.value);
         const yVelocity: number = parseFloat((e.target as HTMLFormElement).yVelocity.value);
-        const color: string = (e.target as HTMLFormElement).color.value;
 
         mass *= 10 ** MASS_EXPONENT[selected];
 
-        const newPlanet = new Planet(mass, xPosition, yPosition, xVelocity, yVelocity, color);
+        const newPlanet = new Planet(mass, xPosition, yPosition, xVelocity, yVelocity, dragColor);
 
         addPlanet(newPlanet);
     }
@@ -132,7 +131,13 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                                         <input name='yPosition' placeholder='y position' type='number' required />
                                         <input name='xVelocity' placeholder='x velocity' type='number' step='.0000000001' required />
                                         <input name='yVelocity' placeholder='y velocity' type='number' step='.0000000001' required />
-                                        <input name='color' placeholder='color' type='text' required />
+                                        <div className='color-buttons' onClick={e => changeDragColor(e)}>
+                                            <button className={`red-button ${dragColor === 'red' ? 'selected-color' : null}`} name='red' type='button'></button>
+                                            <button className={`green-button ${dragColor === 'green' ? 'selected-color' : null}`} name='green' type='button'></button>
+                                            <button className={`blue-button ${dragColor === 'blue' ? 'selected-color' : null}`} name='blue' type='button'></button>
+                                            <button className={`yellow-button ${dragColor === 'yellow' ? 'selected-color' : null}`} name='yellow' type='button'></button>
+                                            <button className={`purple-button ${dragColor === 'purple' ? 'selected-color' : null}`} name='purple' type='button'></button>
+                                        </div>
                                         <button className='button create-planet-button' type='submit'>Create {selected === 'planet' ? 'Planet' : 'Star'}</button>
                                     </form>
                                 : null
