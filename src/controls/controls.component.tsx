@@ -6,7 +6,7 @@ import { ReactComponent as ClearIcon } from '../assets/clear.svg';
 import { ReactComponent as PauseIcon } from '../assets/pause.svg';
 import { ReactComponent as PlanetIcon } from '../assets/planet.svg';
 import { ReactComponent as PlayIcon } from '../assets/play.svg';
-import { ReactComponent as SunIcon } from '../assets/star.svg';
+import { ReactComponent as StarIcon } from '../assets/star.svg';
 
 import { Color } from '../App';
 import Planet from '../planet';
@@ -27,14 +27,14 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
     const DEFAULT_DRAG_MASS = Math.round((dragMass / 10 ** 24) * 10 ** 10) / 10 ** 10;
     const MASS_EXPONENT = {
         planet: 24,
-        sun: 30
+        star: 30
     };
 
     const [visible, setVisible] = useState(true);
     const [dragVisible, setDragVisible] = useState(false);
     const [formVisible, setFormVisible] = useState(false);
     const [massFactor, setMassFactor] = useState(1);
-    const [selected, setSelected] = useState<'planet' | 'sun'>('planet');
+    const [selected, setSelected] = useState<'planet' | 'star'>('planet');
 
     const changeDragMass = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
@@ -73,7 +73,7 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
         addPlanet(newPlanet);
     }
 
-    const setDragType = (type: 'planet' | 'sun') => {
+    const setDragType = (type: 'planet' | 'star') => {
         setSelected(type);
 
         const mass = massFactor * 10 ** MASS_EXPONENT[type];
@@ -146,8 +146,8 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                         <button onClick={togglePlay}>
                             { play ? <PauseIcon /> : <PlayIcon /> }
                         </button>
-                        <button className={ selected === 'sun' ? 'selected' : '' } onClick={() => setDragType('sun')}>
-                            <SunIcon />
+                        <button className={ selected === 'star' ? 'selected' : '' } onClick={() => setDragType('star')}>
+                            <StarIcon />
                         </button>
                         <button className={ selected === 'planet' ? 'selected' : '' } onClick={() => setDragType('planet')}>
                             <PlanetIcon />
