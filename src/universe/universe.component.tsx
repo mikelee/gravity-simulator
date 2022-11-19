@@ -6,7 +6,7 @@ import './universe.styles.scss';
 import Planet from '../planet';
 
 interface Props {
-    dragColor: 'red' | 'green' | 'blue' | 'yellow',
+    dragColor: 'red' | 'green' | 'blue' | 'yellow' | 'purple',
     dragMass: number,
     planets: Planet[],
     play: boolean,

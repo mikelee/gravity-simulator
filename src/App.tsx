@@ -7,7 +7,7 @@ import Universe from './universe/universe.component';
 
 import Planet from './planet';
 
-export type Color = 'red' | 'green' | 'blue' | 'yellow';
+export type Color = 'red' | 'green' | 'blue' | 'yellow' | 'purple';
 
 const DEFAULT_DRAG_MASS = 10 ** 24;
 

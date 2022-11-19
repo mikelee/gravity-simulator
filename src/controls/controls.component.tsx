@@ -110,6 +110,7 @@ const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clear
                                                 <button className={`green-button ${dragColor === 'green' ? 'selected-color' : null}`} name='green'></button>
                                                 <button className={`blue-button ${dragColor === 'blue' ? 'selected-color' : null}`} name='blue'></button>
                                                 <button className={`yellow-button ${dragColor === 'yellow' ? 'selected-color' : null}`} name='yellow'></button>
+                                                <button className={`purple-button ${dragColor === 'purple' ? 'selected-color' : null}`} name='purple'></button>
                                             </div>
                                         </section>
                                         <section>

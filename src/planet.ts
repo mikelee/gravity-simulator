@@ -29,7 +29,9 @@ export default class Planet {
         blue: '#5576E6',
         blueDark: '#314A9E',
         yellow: '#E6E655',
-        yellowDark: '#A1A127'
+        yellowDark: '#A1A127',
+        purple: '#C334EB',
+        purpleDark: '#741D8C'
     }
 
     static calcGravity(m1: number, m2: number, r: number) {
