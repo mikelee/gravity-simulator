@@ -15,7 +15,7 @@ function App() {
     const [planets, setPlanets] = useState<Planet[]>([]);
     const [play, setPlay] = useState(true);
     // drag controls
-    const [dragColor, setDragColor] = useState<Color>('red');
+    const [dragColor, setDragColor] = useState<Color>('yellow');
     const [dragMass, setDragMass] = useState(DEFAULT_DRAG_MASS);
     
     const addPlanet = (planet: Planet) => {
