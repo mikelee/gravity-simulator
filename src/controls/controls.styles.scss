@@ -49,6 +49,15 @@
                 border-radius: 100px;
                 padding: 8px;
                 border: none;
+                transition: all .3s;
+
+                &:hover {
+                    transform: translateY(-3px);
+                }
+                
+                &:active {
+                    transform: translateY(3px);
+                }
             }
 
             & > * {
@@ -64,6 +73,15 @@
                 background: none;
                 margin: 0 16px;
                 border: none;
+                transition: all .3s;
+
+                &:hover {
+                    scale: 1.1;
+                }
+
+                &:active {
+                    scale: .9;
+                }
             }
 
              .selected .fill-1 {
