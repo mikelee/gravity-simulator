@@ -64,6 +64,13 @@
                 width: 200px;
                 margin: 0 16px;
             }
+
+            input {
+                background-color: #FFFFFF;
+                padding: 8px;
+                border: none;
+                border-radius: 4px;
+            }
         }
 
         .buttons {
@@ -126,11 +133,21 @@
                 margin-bottom: 0;
             }
 
-            input {
-                background-color: #FFFFFF;
+            button[type="submit"] {
+                background-color: #D14B4B;
+                color: #FFFFFF;
                 padding: 8px;
                 border: none;
-                border-radius: 4px;
+                border-radius: 100px;
+                transition: all .3s;
+
+                &:hover {
+                    transform: translateY(-3px);
+                }
+                
+                &:active {
+                    transform: translateY(3px);
+                }
             }
         }
 
