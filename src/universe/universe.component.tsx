@@ -110,13 +110,13 @@ const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlan
         setLineStart({x: e.clientX, y: e.clientY});
 
         if (canvasRef && canvasRef.current) {
-            (canvasRef?.current as HTMLCanvasElement)?.addEventListener('mousemove', mouseMoveRef.current);
+            (canvasRef.current as HTMLCanvasElement).addEventListener('mousemove', mouseMoveRef.current);
         }
     }
 
     const releaseClick = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
         if (canvasRef && canvasRef.current) {
-            (canvasRef?.current as HTMLCanvasElement)?.removeEventListener('mousemove', mouseMoveRef.current);
+            (canvasRef.current as HTMLCanvasElement).removeEventListener('mousemove', mouseMoveRef.current);
         }
 
         if (lineStart) createPlanet(lineStart.x, lineStart.y, e.clientX, e.clientY);
