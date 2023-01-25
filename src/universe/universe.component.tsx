@@ -23,9 +23,9 @@ const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlan
     }
 
     const mouseMoveRef = useRef<(this: HTMLCanvasElement, ev: MouseEvent) => any>(handleMouseMove);
-
     const canvasRef = useRef(null);
     const rafIdRef = useRef<number | null>(null);
+    
     let rafId: number;
     let canvas: HTMLCanvasElement | null;
     let ctx: CanvasRenderingContext2D | null;
