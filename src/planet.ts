@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { roundDecimal10 } from './utils';
 
 export default class Planet {
     id: string;
@@ -150,8 +151,8 @@ export default class Planet {
 
     updateVelocity(deltaX: number, deltaY: number) {
         // round to 10 decimal places
-        deltaX = Math.round(deltaX * (10 ** 10))  / (10 ** 10);
-        deltaY = Math.round(deltaY * (10 ** 10))  / (10 ** 10);
+        deltaX = roundDecimal10(deltaX);
+        deltaY = roundDecimal10(deltaY);
 
         this.xVelocity += deltaX;
         this.yVelocity += deltaY;
