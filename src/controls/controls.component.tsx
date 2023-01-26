@@ -24,7 +24,6 @@ interface Props {
 
 const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clearPlanets, setDragColor, setDragMass, togglePlay }) => {
     // in increments of 10^24. To 10 decimal places
-    const DEFAULT_DRAG_MASS = Math.round((dragMass / 10 ** 24) * 10 ** 10) / 10 ** 10;
     const MASS_EXPONENT = {
         planet: 24,
         star: 30
