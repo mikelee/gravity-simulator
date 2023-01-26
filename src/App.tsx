@@ -9,13 +9,14 @@ import Planet from './planet';
 
 export type Color = 'red' | 'green' | 'blue' | 'yellow' | 'purple';
 
+const DEFAULT_DRAG_COLOR = 'yellow';
 const DEFAULT_DRAG_MASS = 10 ** 30;
 
 function App() {
     const [planets, setPlanets] = useState<Planet[]>([]);
     const [play, setPlay] = useState(true);
     // drag controls
-    const [dragColor, setDragColor] = useState<Color>('yellow');
+    const [dragColor, setDragColor] = useState<Color>(DEFAULT_DRAG_COLOR);
     const [dragMass, setDragMass] = useState(DEFAULT_DRAG_MASS);
     
     const addPlanet = (planet: Planet) => {
