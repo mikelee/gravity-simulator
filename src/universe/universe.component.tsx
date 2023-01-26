@@ -15,14 +15,14 @@ interface Props {
 }
 
 const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlanet }) => {
-    const handleMouseMove = (e: any) => {
+    const handleMouseMove = (e: MouseEvent) => {
         setLineEnd({
             x: e.clientX,
             y: e.clientY
        });
     }
 
-    const mouseMoveRef = useRef<(this: HTMLCanvasElement, ev: MouseEvent) => any>(handleMouseMove);
+    const mouseMoveRef = useRef(handleMouseMove);
     const canvasRef = useRef(null);
     const rafIdRef = useRef<number | null>(null);
     
