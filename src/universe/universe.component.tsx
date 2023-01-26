@@ -106,7 +106,7 @@ const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlan
         requestAnimationFrame(refresh);
     }
 
-    const clickCanvas = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
+    const startClick = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
         setLineStart({x: e.clientX, y: e.clientY});
 
         if (canvasRef && canvasRef.current) {
@@ -114,7 +114,7 @@ const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlan
         }
     }
 
-    const releaseClick = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
+    const endClick = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
         if (canvasRef && canvasRef.current) {
             (canvasRef.current as HTMLCanvasElement).removeEventListener('mousemove', mouseMoveRef.current);
         }
@@ -270,7 +270,7 @@ const Universe: React.FC<Props> = ({ dragColor, dragMass, planets, play, addPlan
 
     return (
         <div className='universe'>
-            <canvas ref={canvasRef} id='canvas' width={windowSize.width} height={windowSize.height} onMouseDown={e => clickCanvas(e)} onMouseUp={e => releaseClick(e)} ></canvas>
+            <canvas ref={canvasRef} id='canvas' width={windowSize.width} height={windowSize.height} onMouseDown={e => startClick(e)} onMouseUp={e => endClick(e)} ></canvas>
         </div>
     );
 }
