@@ -12,26 +12,29 @@ const drawArrow = (ctx: CanvasRenderingContext2D, lineStart: Coordinates, lineEn
     const leftBarb = calcBarbEndpoint(barbSlopes.leftSlope, barbSlopes.leftAngle, lineStart, deltaX);
     const rightBarb = calcBarbEndpoint(barbSlopes.rightSlope, barbSlopes.rightAngle, lineStart, deltaX);
 
+    const COLOR = 'white';
+    const LINE_WIDTH = 1;
+
     // straight line
     ctx.beginPath();
-    ctx.strokeStyle = 'white';
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = COLOR;
+    ctx.lineWidth = LINE_WIDTH;
     ctx.moveTo(lineStart.x, lineStart.y);
     ctx.lineTo(lineEnd.x, lineEnd.y);
     ctx.stroke();
     
     // left barb when arrow pointing up
     ctx.beginPath();
-    ctx.strokeStyle = 'white';
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = COLOR;
+    ctx.lineWidth = LINE_WIDTH;
     ctx.moveTo(lineStart.x, lineStart.y);
     ctx.lineTo(leftBarb.x, leftBarb.y);
     ctx.stroke();
 
     // right barb when arrow pointing up
     ctx.beginPath();
-    ctx.strokeStyle = 'white';
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = COLOR;
+    ctx.lineWidth = LINE_WIDTH;
     ctx.moveTo(lineStart.x, lineStart.y);
     ctx.lineTo(rightBarb.x, rightBarb.y);
     ctx.stroke();
