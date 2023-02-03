@@ -128,7 +128,7 @@ export default class Planet {
         gradient.addColorStop(.9, Planet.colors[this.color]);
         ctx.fillStyle = gradient;
 
-        ctx.arc(x, y, this.radius, 0, 2* Math.PI, false);
+        ctx.arc(x, y, this.radius, 0, 2 * Math.PI, false);
         ctx.fill();
     }
 
