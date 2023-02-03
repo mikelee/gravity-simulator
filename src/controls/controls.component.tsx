@@ -23,7 +23,6 @@ interface Props {
 }
 
 const Controls: React.FC<Props> = ({ dragColor, dragMass, play, addPlanet, clearPlanets, setDragColor, setDragMass, togglePlay }) => {
-    // in increments of 10^24. To 10 decimal places
     const MASS_EXPONENT = {
         planet: 24,
         star: 30
