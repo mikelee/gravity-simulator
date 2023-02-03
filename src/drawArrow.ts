@@ -40,7 +40,7 @@ const drawArrow = (ctx: CanvasRenderingContext2D, lineStart: Coordinates, lineEn
     ctx.stroke();
 }
 
-const calcBarbEndpoint = (slope: number, angle: number, lineStart: { x: number, y: number }, baseDeltaX: number) => {
+const calcBarbEndpoint = (slope: number, angle: number, lineStart: Coordinates, baseDeltaX: number) => {
     const BARB_LENGTH = 15;
 
     // don't need to calculate xDirection because the +- function determines x direction later on
